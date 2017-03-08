@@ -72,7 +72,6 @@ var dvd = function() {
 	var bounceySquare = function () {
 		Astop();
 		drawImg(xcor,ycor);
-
 		if (xDec) {
 			xcor --;
 		}
@@ -116,7 +115,7 @@ var move = function() {
 	window.cancelAnimationFrame( reqId );
 
 	var floatyBubbbles = function() {
-		clear();
+		//clear();
 		var bubbles = document.getElementsByTagName("circle");
 		for (var i = 0, max = bubbles.length; i<max; i++){
 			var currX = bubbles[i].getAttribute("cx");
