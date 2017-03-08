@@ -17,6 +17,7 @@ a js function that will clear an svg element
 
 var container = document.getElementById("vimage");
 var clearBtn = document.getElementById("og");
+var moveBtn = document.getElementById("move");
 
 var change = function(e) {
 	console.log("haha")
@@ -36,7 +37,6 @@ var drawCicle = function(e) {
 	container.appendChild(f);
 }
 
-
 var clear = function() {
 	var list = document.getElementsByTagName("circle");
 	while (list.length != 0) {
@@ -48,9 +48,21 @@ var clearOne = function(e) {
 	container.removeChild(e)
 }
 
+//var moveBubbles = function(bubble,right,down) {
 
+var move = function() {
+    var bubbles = document.getElementsByTagName("circle");
+    for (var i = 0, max = bubbles.length; i<max; i++){
+	var currX = bubbles[i].getAttribute("cx");
+	var currY = bubbles[i].getAttribute("cy");
+	bubbles[i].setAttribute("cx",currX++);
+	bubbles[i].setAttribute("cy",currY++);
+}
+}
+    
 
 
 container.addEventListener("click", drawCicle);
 clearBtn.addEventListener("click", clear);
+moveBtn.addEventListener("click", move);
 
