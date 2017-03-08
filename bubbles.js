@@ -25,7 +25,7 @@ var moveBtn = document.getElementById("move");
 
 var change = function(e) {
 	console.log("haha");
-	if (this.getAttribute("fill").equals("blue")) {
+	if (this.getAttribute("fill").equals("pink")) {
 		container.removeChild(this);
 	}
 	else {
