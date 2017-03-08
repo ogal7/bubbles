@@ -1,15 +1,19 @@
-//OG softdev pd 6
+//OG + MW softdev pd 6
 /*
 	document.getElementById(<ID>)           **SINGLE ELEMENT**
 	document.getElementsByTagName(<TAG>)
 	document.getElementsByClassName(<CLASS>)
 
-an html file with an svg element and a clear button
-a hs function that will create and return a circle svg element
-a js function tht will call the funtion above and add the returned circle to the svg element
-attach this draw cirlce function to the svg elemet
-a js function that will clear an svg element
-
+Create an html/js program with the following features
+An svg container
+2 buttons, one labeled clear, the other labeled move
+Enable the following event listeners for the svg area
+Clicking on a blank section of the sag area should create a circle at that position
+Clicking on a circle once should change its color, no new circles should be added to the svg container
+Clicking on a circle a second time should remove the circle and add a new one to the svg container at a random location
+Don't put this all in a single event listener
+When the "move" button is clicked, the circles should start to move around the svg container, bouncing off the walls
+The other event listeners should still function as described above.
 */
 
 
@@ -20,7 +24,9 @@ var clearBtn = document.getElementById("og");
 var moveBtn = document.getElementById("move");
 
 var change = function(e) {
-	console.log("haha")
+	console.log("haha");
+	this.setAttribute("fill", "pink");
+	e.stopPropagation();
 }
 
 var createCircle = function (x,y) {
