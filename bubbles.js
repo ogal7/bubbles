@@ -25,8 +25,14 @@ var moveBtn = document.getElementById("move");
 
 var change = function(e) {
 	console.log("haha");
+	if (this.getAttribute("fill").equals("blue")) {
+		container.removeChild(this);
+	}
+	else {
 	this.setAttribute("fill", "pink");
+	}
 	e.stopPropagation();
+	
 }
 
 var createCircle = function (x,y) {
