@@ -22,16 +22,20 @@ The other event listeners should still function as described above.
 var container = document.getElementById("vimage");
 var clearBtn = document.getElementById("og");
 var moveBtn = document.getElementById("move");
+var reqId;
+
 
 var change = function(e) {
 	console.log("haha");
-	if (this.getAttribute("fill").equals("pink")) {
+	if (this.getAttribute("fill") == "pink") {
 		container.removeChild(this);
+		e.stopPropagation();
 	}
 	else {
-	this.setAttribute("fill", "pink");
+		this.setAttribute("fill", "pink");
+		e.stopPropagation();
 	}
-	e.stopPropagation();
+	
 	
 }
 
@@ -62,16 +66,73 @@ var clearOne = function(e) {
 
 //var moveBubbles = function(bubble,right,down) {
 
+/*
+var dvd = function() {
+	window.cancelAnimationFrame( reqId );
+	var bounceySquare = function () {
+		Astop();
+		drawImg(xcor,ycor);
+
+		if (xDec) {
+			xcor --;
+		}
+		else {
+			xcor ++;
+		}
+		if (yDec) {
+			ycor --;
+		}
+		else {
+			ycor++;
+		}
+		if (ycor + 60 >= 2*y) {
+			yDec = true;
+			console.log("ugh");
+		}
+		if (xcor + 60 >= 2*x) {
+			xDec = true;
+			console.log("ughh");
+		}
+		if (ycor <= 0) {
+			yDec = false;
+			console.log("ughhh");
+		}
+		if (xcor <= 0) {
+			xDec = false;
+			console.log("ughhhh");
+		}
+		reqId = window.requestAnimationFrame (bounceySquare)
+	}
+	bounceySquare();
+
+*/
+
+
+
+
+
 var move = function() {
-    var bubbles = document.getElementsByTagName("circle");
-    for (var i = 0, max = bubbles.length; i<max; i++){
-	var currX = bubbles[i].getAttribute("cx");
-	var currY = bubbles[i].getAttribute("cy");
-	bubbles[i].setAttribute("cx",currX++);
-	bubbles[i].setAttribute("cy",currY++);
+
+	window.cancelAnimationFrame( reqId );
+
+	var floatyBubbbles = function() {
+		clear();
+		var bubbles = document.getElementsByTagName("circle");
+		for (var i = 0, max = bubbles.length; i<max; i++){
+			var currX = bubbles[i].getAttribute("cx");
+			var currY = bubbles[i].getAttribute("cy");
+			currX++;
+			currY++;
+			bubbles[i].setAttribute("cx",currX);
+			bubbles[i].setAttribute("cy",currY);
+		}
+		reqId = window.requestAnimationFrame(floatyBubbbles);
+	}
+	floatyBubbbles()
 }
-}
-    
+
+
+  
 
 
 container.addEventListener("click", drawCicle);
