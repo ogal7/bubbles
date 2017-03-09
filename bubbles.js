@@ -23,6 +23,8 @@ var container = document.getElementById("vimage");
 var clearBtn = document.getElementById("og");
 var moveBtn = document.getElementById("move");
 var reqId;
+var x = container.getAttribute("width")/2;
+var y = container.getAttribute("height")/2;
 
 
 var change = function(e) {
@@ -68,10 +70,18 @@ var clearOne = function(e) {
 
 /*
 var dvd = function() {
+	var yDec = false;
+	var xDec = false;
 	window.cancelAnimationFrame( reqId );
+
 	var bounceySquare = function () {
 		Astop();
+		//c.clearRect(0,0,canvas.width,canvas.height);
+		//c.beginPath();
+		//c.drawImage(img, xcor, ycor);
 		drawImg(xcor,ycor);
+
+		//c.fillRect(xcor,ycor,50,5
 		if (xDec) {
 			xcor --;
 		}
@@ -103,6 +113,7 @@ var dvd = function() {
 		reqId = window.requestAnimationFrame (bounceySquare)
 	}
 	bounceySquare();
+}
 
 */
 
@@ -111,19 +122,48 @@ var dvd = function() {
 
 
 var move = function() {
-
+	var yDec = false;
+	var xDec = false;
+	//var xcor;
+	//var ycor;
 	window.cancelAnimationFrame( reqId );
 
 	var floatyBubbbles = function() {
 		//clear();
 		var bubbles = document.getElementsByTagName("circle");
 		for (var i = 0, max = bubbles.length; i<max; i++){
-			var currX = bubbles[i].getAttribute("cx");
-			var currY = bubbles[i].getAttribute("cy");
-			currX++;
-			currY++;
-			bubbles[i].setAttribute("cx",currX);
-			bubbles[i].setAttribute("cy",currY);
+			var xcor = bubbles[i].getAttribute("cx");
+			var ycor = bubbles[i].getAttribute("cy");
+			if (xDec) {
+				xcor --;
+			}
+			else {
+				xcor ++;
+			}
+			if (yDec) {
+				ycor --;
+			}
+			else {
+				ycor++;
+			}
+			if (ycor + 60 >= 2*y) {
+				yDec = true;
+				console.log("ugh");
+			}
+			if (xcor + 60 >= 2*x) {
+				xDec = true;
+				console.log("ughh");
+			}
+			if (ycor <= 0) {
+				yDec = false;
+				console.log("ughhh");
+			}
+			if (xcor <= 0) {
+				xDec = false;
+				console.log("ughhhh");
+			}
+			bubbles[i].setAttribute("cx",xcor);
+			bubbles[i].setAttribute("cy",ycor);
 		}
 		reqId = window.requestAnimationFrame(floatyBubbbles);
 	}
