@@ -31,6 +31,8 @@ var change = function(e) {
 	console.log("haha");
 	if (this.getAttribute("fill") == "pink") {
 		container.removeChild(this);
+		var c = createCircle(Math.random()*500,Math.random()*500);	
+		container.appendChild(c);
 		e.stopPropagation();
 	}
 	else {
@@ -66,112 +68,36 @@ var clearOne = function(e) {
 	container.removeChild(e)
 }
 
-//var moveBubbles = function(bubble,right,down) {
-
-/*
-var dvd = function() {
-	var yDec = false;
-	var xDec = false;
-	window.cancelAnimationFrame( reqId );
-
-	var bounceySquare = function () {
-		Astop();
-		//c.clearRect(0,0,canvas.width,canvas.height);
-		//c.beginPath();
-		//c.drawImage(img, xcor, ycor);
-		drawImg(xcor,ycor);
-
-		//c.fillRect(xcor,ycor,50,5
-		if (xDec) {
-			xcor --;
-		}
-		else {
-			xcor ++;
-		}
-		if (yDec) {
-			ycor --;
-		}
-		else {
-			ycor++;
-		}
-		if (ycor + 60 >= 2*y) {
-			yDec = true;
-			console.log("ugh");
-		}
-		if (xcor + 60 >= 2*x) {
-			xDec = true;
-			console.log("ughh");
-		}
-		if (ycor <= 0) {
-			yDec = false;
-			console.log("ughhh");
-		}
-		if (xcor <= 0) {
-			xDec = false;
-			console.log("ughhhh");
-		}
-		reqId = window.requestAnimationFrame (bounceySquare)
-	}
-	bounceySquare();
-}
-
-*/
-
-
-
-
 
 var move = function() {
-	var yDec = false;
-	var xDec = false;
-	//var xcor;
-	//var ycor;
 	window.cancelAnimationFrame( reqId );
+    var x = Math.random() * 300 + 100;
+    var y = Math.random() * 300 + 100;
+    var right = true;
+    var down = true;
 
-	var floatyBubbbles = function() {
-		//clear();
-		var bubbles = document.getElementsByTagName("circle");
+  	var floatyBubbbles = function(){
+	    var bubbles = document.getElementsByTagName("circle");
 		for (var i = 0, max = bubbles.length; i<max; i++){
-			var xcor = bubbles[i].getAttribute("cx");
-			var ycor = bubbles[i].getAttribute("cy");
-			if (xDec) {
-				xcor --;
-			}
-			else {
-				xcor ++;
-			}
-			if (yDec) {
-				ycor --;
-			}
-			else {
-				ycor++;
-			}
-			if (ycor + 60 >= 2*y) {
-				yDec = true;
-				console.log("ugh");
-			}
-			if (xcor + 60 >= 2*x) {
-				xDec = true;
-				console.log("ughh");
-			}
-			if (ycor <= 0) {
-				yDec = false;
-				console.log("ughhh");
-			}
-			if (xcor <= 0) {
-				xDec = false;
-				console.log("ughhhh");
-			}
-			bubbles[i].setAttribute("cx",xcor);
-			bubbles[i].setAttribute("cy",ycor);
-		}
-		reqId = window.requestAnimationFrame(floatyBubbbles);
+			var x = bubbles[i].getAttribute("cx");
+			var y = bubbles[i].getAttribute("cy");
+
+	    if (x >= 480) { right = false; }
+	    else if (x <= 0) { right = true; }
+	    if (y <= 0) { down = true; }
+	    else if (y >= 480) { down = false; }
+
+	    if (right) { x++; }
+	    else  { x--; }
+	    if (down) { y++; }
+	    else { y--; }
+	    bubbles[i].setAttribute("cx",x);
+	    bubbles[i].setAttribute("cy",y);
 	}
-	floatyBubbbles()
+	    reqId = window.requestAnimationFrame(floatyBubbbles);
+	  }
+	  floatyBubbbles();
 }
-
-
-  
 
 
 container.addEventListener("click", drawCicle);
