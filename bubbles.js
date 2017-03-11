@@ -79,12 +79,40 @@ var move = function() {
 
   	var floatyBubbbles = function(){
 	    var bubbles = document.getElementsByTagName("circle");
-		for (var i = 0, max = bubbles.length; i<max; i++){
-			//var right = true;
-    		//var down = true;
+	    var i = 0;
+		while (i < bubbles.length && bubbles.length > 0) {
 			var x = bubbles[i].getAttribute("cx");
 			var y = bubbles[i].getAttribute("cy");
+			var newRad = Math.round(.5 * bubbles[i].getAttribute("r"));
+			console.log(newRad);
+			var dir = bubbles[i].getAttribute("dir");
+			var dir1 = bubbles[i].getAttribute("dir1");
 
+			if (newRad <= 1) {
+				container.removeChild(bubbles[i]);
+				i--;}
+
+			else {
+			if (dir == "right") {
+				dir = "left";}
+			else {
+				dir = "right";}
+			if (dir1 == "up") {
+				dir1 = "down";}
+			else {
+				dir1= "up";}
+			
+			if (x == 250) {
+				bubbles[i].setAttribute("r",newRad);
+				i++;
+				var newOne = createCircle(x,y);
+				newOne.setAttribute("r", newRad);
+				newOne.setAttribute("dir",dir);
+				newOne.setAttribute("dir1", dir1);
+				container.appendChild(newOne);
+			}
+
+	
 	    	if (x >= 480) { bubbles[i].setAttribute("dir", "left"); }
 	    	//right = false; }
 	    	else if (x <= 0) { bubbles[i].setAttribute("dir", "right");  }
@@ -100,6 +128,9 @@ var move = function() {
 	    	else { y--; }
 	    	bubbles[i].setAttribute("cx",x);
 	    	bubbles[i].setAttribute("cy",y);
+	    	i++;
+	    }
+	    
 		}
 	    reqId = window.requestAnimationFrame(floatyBubbbles);
 	  }
