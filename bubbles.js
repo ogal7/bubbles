@@ -17,8 +17,6 @@ The other event listeners should still function as described above.
 */
 
 
-
-
 var container = document.getElementById("vimage");
 var clearBtn = document.getElementById("og");
 var moveBtn = document.getElementById("move");
@@ -48,9 +46,9 @@ var createCircle = function (x,y) {
     c.setAttribute("fill", "blue");
     c.setAttribute("cx", x);
     c.setAttribute("cy", y);
-    c.setAttribute("r", "20");
-    c.setAttribute("dir", "right");
-    c.setAttribute("dir1", "down");
+    c.setAttribute("r", 20);
+    c.setAttribute("right", 1);
+    c.setAttribute("down", 1);
     c.addEventListener("click", change);
     return c;
 }
@@ -73,9 +71,6 @@ var clearOne = function(e) {
 
 var move = function() {
 	window.cancelAnimationFrame( reqId );
-    //var xx = Math.random() * 300 + 100;
-    //var yy = Math.random() * 300 + 100;
-    
 
   	var floatyBubbbles = function(){
 	    var bubbles = document.getElementsByTagName("circle");
@@ -83,54 +78,44 @@ var move = function() {
 		while (i < bubbles.length && bubbles.length > 0) {
 			var x = bubbles[i].getAttribute("cx");
 			var y = bubbles[i].getAttribute("cy");
+			var rad = bubbles[i].getAttribute("r");
 			var newRad = Math.round(.5 * bubbles[i].getAttribute("r"));
-			console.log(newRad);
-			var dir = bubbles[i].getAttribute("dir");
-			var dir1 = bubbles[i].getAttribute("dir1");
+			var right = bubbles[i].getAttribute("right");
+			var down = bubbles[i].getAttribute("down");
 
 			if (newRad <= 1) {
 				container.removeChild(bubbles[i]);
 				i--;}
 
 			else {
-			if (dir == "right") {
-				dir = "left";}
-			else {
-				dir = "right";}
-			if (dir1 == "up") {
-				dir1 = "down";}
-			else {
-				dir1= "up";}
-			
-			if (x == 250) {
-				bubbles[i].setAttribute("r",newRad);
-				i++;
-				var newOne = createCircle(x,y);
-				newOne.setAttribute("r", newRad);
-				newOne.setAttribute("dir",dir);
-				newOne.setAttribute("dir1", dir1);
-				container.appendChild(newOne);
-			}
+				//split bubble
+				if (x == 250) {
+					if (right==1){var newOne = createCircle(x-1,y);
+					newOne.setAttribute("right", 0);}
+					else{var newOne = createCircle(x-(-1),y);
+					newOne.setAttribute("right", 1);}
+					if (down==1){newOne.setAttribute("down", 1);}
+					else{newOne.setAttribute("down", 0);}
+					bubbles[i].setAttribute("r",newRad);
+					newOne.setAttribute("r", newRad);
+					container.appendChild(newOne);
+				}
 
-	
-	    	if (x >= 480) { bubbles[i].setAttribute("dir", "left"); }
-	    	//right = false; }
-	    	else if (x <= 0) { bubbles[i].setAttribute("dir", "right");  }
-	    	if (y <= 0) { bubbles[i].setAttribute("dir1", "down"); }
-	    	else if (y >= 480) { bubbles[i].setAttribute("dir1", "up");  }
+				//boundaries
+		    	if (x >= 500) { bubbles[i].setAttribute("right", 0); }
+		    	if (x <= 0) { bubbles[i].setAttribute("right", 1);  }
+		    	if (y <= 0) { bubbles[i].setAttribute("down", 1); }
+		    	if (y >= 500) { bubbles[i].setAttribute("down", 0);  }
 
-
-
-
-	    	if (bubbles[i].getAttribute("dir") == "right") { x++; }
-	    	else  { x--; }
-	    	if (bubbles[i].getAttribute("dir1") == "down") { y++; }
-	    	else { y--; }
-	    	bubbles[i].setAttribute("cx",x);
-	    	bubbles[i].setAttribute("cy",y);
+		    	//moving
+		    	if (right == 1) { x++; }
+		    	else  { x--; }
+		    	if (down == 1) { y++; }
+		    	else { y--; }
+		    	bubbles[i].setAttribute("cx",x);
+		    	bubbles[i].setAttribute("cy",y);
+	    	}
 	    	i++;
-	    }
-	    
 		}
 	    reqId = window.requestAnimationFrame(floatyBubbbles);
 	  }
