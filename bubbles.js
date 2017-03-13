@@ -90,12 +90,12 @@ var move = function() {
 			else {
 				//split bubble
 				if (x == 250) {
-					if (right==1){var newOne = createCircle(x-1,y);
+					if (right==1){var newOne = createCircle(x-3,y);
 					newOne.setAttribute("right", 0);}
-					else{var newOne = createCircle(x-(-1),y);
+					else{var newOne = createCircle(x-(-3),y);
 					newOne.setAttribute("right", 1);}
-					if (down==1){newOne.setAttribute("down", 1);}
-					else{newOne.setAttribute("down", 0);}
+					if (down==1){newOne.setAttribute("down", 0);}
+					else{newOne.setAttribute("down", 1);}
 					bubbles[i].setAttribute("r",newRad);
 					newOne.setAttribute("r", newRad);
 					container.appendChild(newOne);
